@@ -26,6 +26,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  final String location;
+  MyHomePage({this.location='Asia/Kolkata'});
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -47,6 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
 //    final now = new TZDateTime.now(detroit);
   }
 
+  String getTimeZone(String location){
+    String sign = TZDateTime.now(getLocation(location)).timeZoneOffset.isNegative?'-':'+';
+    int hour = TZDateTime.now(getLocation(location)).timeZoneOffset.inHours;
+    int min = TZDateTime.now(getLocation(location)).timeZoneOffset.inMinutes;
+    print(min);
+    return '$sign'+' '+'$hour'+':'+'${min%60}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -66,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               ListTile(
                 title: Text('Region'),
-                subtitle: Text('Asia/Calcutta (GMT +5:30)'),
+                subtitle: Text('${widget.location}  ${getTimeZone(widget.location)}'),
                 onTap: () {
                   Navigator.push(
                       (context),
@@ -82,7 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
 //              print(TZDateTime.now(detroit));
 //              print(LocationDatabase().locations.keys);
 //              print(timeZoneDatabase.locations.values.runtimeType);
-                  print(listOfLocations.length);
+                  print(getTimeZone('Asia/Kolkata'));
+
                 },
               ),
             ],

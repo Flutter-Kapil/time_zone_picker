@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_zone_picker/main.dart';
 
 class SelectLocation extends StatefulWidget {
   final List locationList;
@@ -19,15 +20,7 @@ class _SelectLocationState extends State<SelectLocation> {
     super.initState();
   }
 
-  List subList(List list, String searchParameter) {
-    List subList = [];
-    for (String x in list) {
-//     print(x);
-      x.contains(searchParameter) ? subList.add(x) : null;
-    }
-    print(subList);
-    return subList;
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +29,6 @@ class _SelectLocationState extends State<SelectLocation> {
         appBar: AppBar(
           title: TextField(
             controller: myController,
-//            onChanged: widget.locationList = subList(),
             decoration: InputDecoration(
                 icon: Icon(
                   Icons.search,
@@ -53,7 +45,13 @@ class _SelectLocationState extends State<SelectLocation> {
           itemBuilder: (context, index) {
             return ListTile(
               onTap: () {
-                print(subList(widget.locationList, myController.text));
+                Navigator.push(
+                    (context),
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            MyHomePage(location:widget.locationList
+                                .where((x) => x.contains(myController.text))
+                                .toList()[index] ,)));
               },
               dense: true,
               title: Center(
