@@ -65,4 +65,10 @@ class _SelectLocationState extends State<SelectLocation> {
       ),
     );
   }
+  @override
+  void dispose() {
+    myController.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
 }
