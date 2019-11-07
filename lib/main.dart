@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:time_zone_picker/location_selection_screen.dart';
 import 'package:timezone/timezone.dart';
 import 'package:flutter/services.dart';
-//import 'package:timezone/standalone.dart' as standalone;
 import 'package:timezone/standalone.dart';
 
 void main() async {

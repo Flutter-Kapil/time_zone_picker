@@ -46,9 +46,10 @@ class _SelectLocationState extends State<SelectLocation> {
           ),
         ),
         body: ListView.builder(
-          itemCount: myController.text.isEmpty
-              ? widget.locationList.length
-              : subList(widget.locationList, myController.text).length,
+          itemCount: widget.locationList
+              .where((x) => x.contains(myController.text))
+              .toList()
+              .length,
           itemBuilder: (context, index) {
             return ListTile(
               onTap: () {
@@ -56,10 +57,9 @@ class _SelectLocationState extends State<SelectLocation> {
               },
               dense: true,
               title: Center(
-                child: myController.text.isEmpty
-                    ? Text(widget.locationList[index])
-                    : Text(
-                        subList(widget.locationList, myController.text)[index]),
+                child: Text(widget.locationList
+                    .where((x) => x.contains(myController.text))
+                    .toList()[index]),
               ),
             );
           },
