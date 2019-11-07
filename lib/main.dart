@@ -62,13 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          primary: false,
           title: Text('Select time zone'),
           actions: <Widget>[
-            Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-            Icon(Icons.more_vert, color: Colors.white)
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Icon(Icons.more_vert, color: Colors.white),
+            )
           ],
         ),
         body: Center(
