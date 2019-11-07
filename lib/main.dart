@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String getTimeZone(String location){
     String sign = TZDateTime.now(getLocation(location)).timeZoneOffset.isNegative?'-':'+';
-    int hour = TZDateTime.now(getLocation(location)).timeZoneOffset.inHours;
+    int hour = TZDateTime.now(getLocation(location)).timeZoneOffset.inHours.abs();
     int min = TZDateTime.now(getLocation(location)).timeZoneOffset.inMinutes;
     print(min);
     return '$sign'+' '+'$hour'+':'+'${min%60}';
