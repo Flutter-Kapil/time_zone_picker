@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       delegate: LocationsSearch(listOfLocations),
                     );
                   },
-                  icon: Icon(Icons.more_vert, color: Colors.white)),
+                  icon: Icon(Icons.search, color: Colors.white)),
             ),
             IconButton(
               onPressed: () {
