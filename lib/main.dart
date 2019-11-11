@@ -1,7 +1,4 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:time_zone_picker/location_selection_screen.dart';
 import 'package:timezone/timezone.dart';
 import 'package:flutter/services.dart';
 import 'package:timezone/standalone.dart';
@@ -88,12 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   icon: Icon(Icons.search, color: Colors.white)),
             ),
-            IconButton(
-              onPressed: () {
-                print(timeZoneDatabase.locations.runtimeType);
-              },
-              icon: Icon(Icons.send),
-            )
           ],
         ),
         body: Center(
@@ -104,21 +95,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 subtitle:
                     Text('${widget.location}  ${getTimeZone(widget.location)}'),
                 onTap: () {
-                  Navigator.push(
-                      (context),
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              SelectLocation(listOfLocations)));
-                },
-              ),
-              FlatButton(
-                child: Text('Test Button'),
-                onPressed: () {
-//              final detroit = getLocation('America/Detroit');
-//              print(TZDateTime.now(detroit));
-//              print(LocationDatabase().locations.keys);
-//              print(timeZoneDatabase.locations.values.runtimeType);
-                  print(getTimeZone('Asia/Kolkata'));
+//                  Navigator.push(
+//                      (context),
+//                      MaterialPageRoute(
+//                          builder: (context) =>
+//                              SelectLocation(listOfLocations)));
                 },
               ),
             ],
@@ -145,7 +126,6 @@ class LocationsSearch extends SearchDelegate<String> {
             query = '';
           },
           icon: Icon(Icons.close)),
-      IconButton(onPressed: () {}, icon: Icon(Icons.clear_all)),
     ];
   }
 
@@ -167,29 +147,7 @@ class LocationsSearch extends SearchDelegate<String> {
     // TODO: implement buildResults
     List results =
         listOfLocations.where((cityName) => cityName.contains(query)).toList();
-    return ListView.builder(
-      itemCount: results.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          onTap: () {
-//            query = results[index];
-//            Navigator.pop(
-//                (context),
-//                MaterialPageRoute(
-//                    builder: (context) => MyHomePage(
-//                          location: listOfLocations[index],
-//                        )));
-          },
-          dense: true,
-          title: Center(
-            child: Text(
-              results[index],
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-        );
-      },
-    );
+    return Container();
   }
 
   @override
