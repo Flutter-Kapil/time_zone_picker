@@ -167,8 +167,11 @@ class LocationsSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    List results =
+        listOfLocations.where((cityName) => cityName.contains(query)).toList();
     // TODO: implement buildSuggestions
     return ListView.builder(
+      itemCount: results.length,
       itemBuilder: (context, index) {
         return ListTile(
           onTap: () {
@@ -181,7 +184,7 @@ class LocationsSearch extends SearchDelegate<String> {
           },
           dense: true,
           title: Center(
-            child: Text(listOfLocations[index]),
+            child: Text(results[index]),
           ),
         );
       },
