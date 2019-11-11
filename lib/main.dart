@@ -94,13 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text('Region'),
                 subtitle:
                     Text('${widget.location}  ${getTimeZone(widget.location)}'),
-                onTap: () {
-//                  Navigator.push(
-//                      (context),
-//                      MaterialPageRoute(
-//                          builder: (context) =>
-//                              SelectLocation(listOfLocations)));
-                },
+                onTap: () {},
               ),
             ],
           ),
@@ -162,13 +156,6 @@ class LocationsSearch extends SearchDelegate<String> {
         return ListTile(
           onTap: () {
             close(context, results[index]);
-//            query = results[index];
-//            Navigator.push(
-//                (context),
-//                MaterialPageRoute(
-//                    builder: (context) => MyHomePage(
-//                          location: listOfLocations[index],
-//                        )));
           },
           dense: true,
           title: Text(results[index]),
