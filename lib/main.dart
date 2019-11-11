@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-      ),
+      themeMode: ThemeMode.dark,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(brightness: Brightness.dark),
       home: MyHomePage(),
     );
   }
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          primary: false,
+//          primary: false,
           title: Text('Select time zone'),
           actions: <Widget>[
             Padding(
@@ -111,6 +111,7 @@ class LocationsSearch extends SearchDelegate<String> {
 
   @override
   List<Widget> buildActions(BuildContext context) {
+    appBarTheme(context);
 //    can display multiple icons on the top right corner
     //like close button,
     // TODO: implement buildActions
@@ -125,6 +126,7 @@ class LocationsSearch extends SearchDelegate<String> {
 
   @override
   Widget buildLeading(BuildContext context) {
+    appBarTheme(context).appBarTheme;
     // TODO: implement buildLeading
     // to close or back arrow on the top left
     //for now returning null
@@ -139,8 +141,6 @@ class LocationsSearch extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
-    List results =
-        listOfLocations.where((cityName) => cityName.contains(query)).toList();
     return Container();
   }
 
