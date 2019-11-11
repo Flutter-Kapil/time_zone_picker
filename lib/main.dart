@@ -160,8 +160,24 @@ class LocationsSearch extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
-    return Container(
-      color: Colors.orange,
+    return ListView.builder(
+      itemCount: 1,
+      itemBuilder: (context, index) {
+        return ListTile(
+          onTap: () {
+//            Navigator.push(
+//                (context),
+//                MaterialPageRoute(
+//                    builder: (context) => MyHomePage(
+//                          location: listOfLocations[index],
+//                        )));
+          },
+          dense: true,
+          title: Center(
+            child: Text([index]),
+          ),
+        );
+      },
     );
   }
 
