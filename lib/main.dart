@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:time_zone_picker/location_selection_screen.dart';
 import 'package:timezone/timezone.dart';
@@ -76,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     showSearch(
                       context: context,
-                      delegate: LocationsSearch(),
+                      delegate: LocationsSearch(listOfLocations),
                     );
                   },
                   icon: Icon(Icons.more_vert, color: Colors.white)),
@@ -123,6 +125,10 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class LocationsSearch extends SearchDelegate<String> {
+  final List<dynamic> cities;
+
+  LocationsSearch(this.cities);
+
   @override
   List<Widget> buildActions(BuildContext context) {
 //    can display multiple icons on the top right corner
@@ -162,6 +168,23 @@ class LocationsSearch extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     // TODO: implement buildSuggestions
-    return Text(query);
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return ListTile(
+          onTap: () {
+//            Navigator.push(
+//                (context),
+//                MaterialPageRoute(
+//                    builder: (context) => MyHomePage(
+//                          location: listOfLocations[index],
+//                        )));
+          },
+          dense: true,
+          title: Center(
+            child: Text(listOfLocations[index]),
+          ),
+        );
+      },
+    );
   }
 }
