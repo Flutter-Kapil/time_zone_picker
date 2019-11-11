@@ -20,8 +20,6 @@ class _SelectLocationState extends State<SelectLocation> {
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -48,10 +46,11 @@ class _SelectLocationState extends State<SelectLocation> {
                 Navigator.push(
                     (context),
                     MaterialPageRoute(
-                        builder: (context) =>
-                            MyHomePage(location:widget.locationList
-                                .where((x) => x.contains(myController.text))
-                                .toList()[index] ,)));
+                        builder: (context) => MyHomePage(
+                              location: widget.locationList
+                                  .where((x) => x.contains(myController.text))
+                                  .toList()[index],
+                            )));
               },
               dense: true,
               title: Center(
@@ -65,9 +64,10 @@ class _SelectLocationState extends State<SelectLocation> {
       ),
     );
   }
+
   @override
   void dispose() {
-    myController.dispose();
+//    myController.dispose();
     // TODO: implement dispose
     super.dispose();
   }

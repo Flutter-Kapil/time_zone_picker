@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   final String location;
-  MyHomePage({this.location='Asia/Kolkata'});
+  MyHomePage({this.location = 'Asia/Kolkata'});
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     setup();
+    //converting Map keys from database into list
     timeZoneDatabase.locations.keys.forEach((x) => listOfLocations.add(x));
     // TODO: implement initState
     super.initState();
@@ -49,12 +50,16 @@ class _MyHomePageState extends State<MyHomePage> {
 //    final now = new TZDateTime.now(detroit);
   }
 
-  String getTimeZone(String location){
-    String sign = TZDateTime.now(getLocation(location)).timeZoneOffset.isNegative?'-':'+';
-    int hour = TZDateTime.now(getLocation(location)).timeZoneOffset.inHours.abs();
+  String getTimeZone(String location) {
+    String sign =
+        TZDateTime.now(getLocation(location)).timeZoneOffset.isNegative
+            ? '-'
+            : '+';
+    int hour =
+        TZDateTime.now(getLocation(location)).timeZoneOffset.inHours.abs();
     int min = TZDateTime.now(getLocation(location)).timeZoneOffset.inMinutes;
     print(min);
-    return '$sign'+' '+'$hour'+':'+'${min%60}';
+    return '$sign' + ' ' + '$hour' + ':' + '${min % 60}';
   }
 
   @override
@@ -67,7 +72,20 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 10),
-              child: Icon(Icons.more_vert, color: Colors.white),
+              child: IconButton(
+                  onPressed: () {
+                    showSearch(
+                      context: context,
+                      delegate: LocationsSearch(),
+                    );
+                  },
+                  icon: Icon(Icons.more_vert, color: Colors.white)),
+            ),
+            IconButton(
+              onPressed: () {
+                print(timeZoneDatabase.locations.runtimeType);
+              },
+              icon: Icon(Icons.send),
             )
           ],
         ),
@@ -76,7 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               ListTile(
                 title: Text('Region'),
-                subtitle: Text('${widget.location}  ${getTimeZone(widget.location)}'),
+                subtitle:
+                    Text('${widget.location}  ${getTimeZone(widget.location)}'),
                 onTap: () {
                   Navigator.push(
                       (context),
@@ -93,13 +112,54 @@ class _MyHomePageState extends State<MyHomePage> {
 //              print(LocationDatabase().locations.keys);
 //              print(timeZoneDatabase.locations.values.runtimeType);
                   print(getTimeZone('Asia/Kolkata'));
-
                 },
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class LocationsSearch extends SearchDelegate<String> {
+  @override
+  List<Widget> buildActions(BuildContext context) {
+//    can display multiple icons on the top right corner
+    //like close button,
+    // TODO: implement buildActions
+    return [
+      IconButton(onPressed: () {}, icon: Icon(Icons.close)),
+      IconButton(onPressed: () {}, icon: Icon(Icons.clear_all)),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    // TODO: implement buildLeading
+    // to close or back arrow on the top left
+    //for now returning null
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
+    return Container(
+      color: Colors.orange,
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // TODO: implement buildSuggestions
+    return Container(
+      color: Colors.yellow,
     );
   }
 }
