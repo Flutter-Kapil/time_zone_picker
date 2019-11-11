@@ -160,11 +160,15 @@ class LocationsSearch extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
+    List results = listOfLocations
+        .where((cityName) => cityName.toLowerCase().contains(query))
+        .toList();
     return ListView.builder(
-      itemCount: 1,
+      itemCount: results.length,
       itemBuilder: (context, index) {
         return ListTile(
           onTap: () {
+            query = results[index];
 //            Navigator.push(
 //                (context),
 //                MaterialPageRoute(
@@ -174,7 +178,10 @@ class LocationsSearch extends SearchDelegate<String> {
           },
           dense: true,
           title: Center(
-            child: Text(index.toString()),
+            child: Text(
+              results[index],
+              style: TextStyle(color: Colors.yellow),
+            ),
           ),
         );
       },
@@ -183,10 +190,10 @@ class LocationsSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    // TODO: implement buildSuggestions
     List results = listOfLocations
         .where((cityName) => cityName.toLowerCase().contains(query))
         .toList();
-    // TODO: implement buildSuggestions
     return ListView.builder(
       itemCount: results.length,
       itemBuilder: (context, index) {
