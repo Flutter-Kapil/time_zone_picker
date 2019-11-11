@@ -167,8 +167,9 @@ class LocationsSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List results =
-        listOfLocations.where((cityName) => cityName.contains(query)).toList();
+    List results = listOfLocations
+        .where((cityName) => cityName.toLowerCase().contains(query))
+        .toList();
     // TODO: implement buildSuggestions
     return ListView.builder(
       itemCount: results.length,
