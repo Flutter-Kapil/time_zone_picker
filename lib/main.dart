@@ -174,7 +174,7 @@ class LocationsSearch extends SearchDelegate<String> {
           },
           dense: true,
           title: Center(
-            child: Text([index]),
+            child: Text(index.toString()),
           ),
         );
       },
@@ -192,6 +192,7 @@ class LocationsSearch extends SearchDelegate<String> {
       itemBuilder: (context, index) {
         return ListTile(
           onTap: () {
+            query = results[index];
 //            Navigator.push(
 //                (context),
 //                MaterialPageRoute(
