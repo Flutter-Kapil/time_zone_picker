@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  final String location;
+  String location;
   MyHomePage({this.location = 'Asia/Kolkata'});
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -75,11 +75,16 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: IconButton(
-                  onPressed: () {
-                    showSearch(
+                  onPressed: () async {
+                    dynamic newLocation = await showSearch(
                       context: context,
                       delegate: LocationsSearch(listOfLocations),
                     );
+                    print('newLocation is $newLocation');
+                    if (newLocation != null) {
+                      widget.location = newLocation;
+                      setState(() {});
+                    }
                   },
                   icon: Icon(Icons.search, color: Colors.white)),
             ),
@@ -160,16 +165,15 @@ class LocationsSearch extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
-    List results = listOfLocations
-        .where((cityName) => cityName.toLowerCase().contains(query))
-        .toList();
+    List results =
+        listOfLocations.where((cityName) => cityName.contains(query)).toList();
     return ListView.builder(
       itemCount: results.length,
       itemBuilder: (context, index) {
         return ListTile(
           onTap: () {
-            query = results[index];
-//            Navigator.push(
+//            query = results[index];
+//            Navigator.pop(
 //                (context),
 //                MaterialPageRoute(
 //                    builder: (context) => MyHomePage(
@@ -180,7 +184,7 @@ class LocationsSearch extends SearchDelegate<String> {
           title: Center(
             child: Text(
               results[index],
-              style: TextStyle(color: Colors.yellow),
+              style: TextStyle(color: Colors.red),
             ),
           ),
         );
@@ -199,7 +203,8 @@ class LocationsSearch extends SearchDelegate<String> {
       itemBuilder: (context, index) {
         return ListTile(
           onTap: () {
-            query = results[index];
+            close(context, results[index]);
+//            query = results[index];
 //            Navigator.push(
 //                (context),
 //                MaterialPageRoute(
@@ -208,9 +213,7 @@ class LocationsSearch extends SearchDelegate<String> {
 //                        )));
           },
           dense: true,
-          title: Center(
-            child: Text(results[index]),
-          ),
+          title: Text(results[index]),
         );
       },
     );
