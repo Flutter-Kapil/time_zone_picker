@@ -129,7 +129,11 @@ class LocationsSearch extends SearchDelegate<String> {
     //like close button,
     // TODO: implement buildActions
     return [
-      IconButton(onPressed: () {}, icon: Icon(Icons.close)),
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: Icon(Icons.close)),
       IconButton(onPressed: () {}, icon: Icon(Icons.clear_all)),
     ];
   }
@@ -158,8 +162,6 @@ class LocationsSearch extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     // TODO: implement buildSuggestions
-    return Container(
-      color: Colors.yellow,
-    );
+    return Text(query);
   }
 }
