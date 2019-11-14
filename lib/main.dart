@@ -69,24 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
 //          primary: false,
           title: Text('Select time zone'),
-          actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: IconButton(
-                  onPressed: () async {
-                    dynamic newLocation = await showSearch(
-                      context: context,
-                      delegate: LocationsSearch(listOfLocations),
-                    );
-                    print('newLocation is $newLocation');
-                    if (newLocation != null) {
-                      widget.location = newLocation;
-                      setState(() {});
-                    }
-                  },
-                  icon: Icon(Icons.search, color: Colors.white)),
-            ),
-          ],
         ),
         body: Center(
           child: Column(
@@ -95,7 +77,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text('Region'),
                 subtitle:
                     Text('${widget.location}  ${getTimeZone(widget.location)}'),
-                onTap: () {},
+                onTap: () async {
+                  dynamic newLocation = await showSearch(
+                    context: context,
+                    delegate: LocationsSearch(listOfLocations),
+                  );
+                  print('newLocation is $newLocation');
+                  if (newLocation != null) {
+                    widget.location = newLocation;
+                    setState(() {});
+                  }
+                },
               ),
             ],
           ),
