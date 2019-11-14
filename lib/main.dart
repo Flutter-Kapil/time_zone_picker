@@ -18,7 +18,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(brightness: Brightness.dark),
+      theme: ThemeData(
+          appBarTheme: AppBarTheme(color: Colors.black),
+          brightness: Brightness.dark,
+          canvasColor: Colors.white10,
+          inputDecorationTheme: InputDecorationTheme(
+            fillColor: Colors.deepPurpleAccent,
+          )),
       home: MyHomePage(),
     );
   }
@@ -110,8 +116,18 @@ class LocationsSearch extends SearchDelegate<String> {
   LocationsSearch(this.cities);
 
   @override
+  ThemeData appBarTheme(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return theme.copyWith(
+      primaryColor: theme.primaryColor,
+      primaryIconTheme: theme.primaryIconTheme,
+      primaryColorBrightness: theme.primaryColorBrightness,
+      primaryTextTheme: theme.primaryTextTheme,
+    );
+  }
+
+  @override
   List<Widget> buildActions(BuildContext context) {
-    appBarTheme(context);
 //    can display multiple icons on the top right corner
     //like close button,
     // TODO: implement buildActions
