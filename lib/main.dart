@@ -42,17 +42,11 @@ List listOfLocations = [];
 class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
-    setup();
+//    setup();
     //converting Map keys from database into list
     timeZoneDatabase.locations.keys.forEach((x) => listOfLocations.add(x));
     // TODO: implement initState
     super.initState();
-  }
-
-  Future<void> setup() async {
-    await initializeTimeZone();
-//    final detroit = getLocation('America/Detroit');
-//    final now = new TZDateTime.now(detroit);
   }
 
   String getTimeZone(String location) {
@@ -64,7 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
         TZDateTime.now(getLocation(location)).timeZoneOffset.inHours.abs();
     int min = TZDateTime.now(getLocation(location)).timeZoneOffset.inMinutes;
     print(min);
-    return '$sign' + ' ' + '$hour' + ':' + '${min % 60}';
+    String minString = min % 60 == 0 ? '00' : (min % 60).toString();
+    return '$sign' + ' ' + '$hour' + ':' + minString;
   }
 
   @override
